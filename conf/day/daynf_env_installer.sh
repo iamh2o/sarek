@@ -112,7 +112,7 @@ else
         echo "DAYNF environment created successfully."
         echo ""
         echo "Try the following commands to get started:"
-        echo "  source dyinit --project <PROJECT>"
+        echo "  source dynfinit --project <PROJECT>"
         echo "  dynf-a local"
     else
         echo "Failed to create DAYNF environment."
@@ -123,7 +123,7 @@ fi
 echo ""
 echo "Installation complete."
 echo "Please log out and log back in, then run:"
-echo "  source dyinit --project <PROJECT>"
+echo "  source dynfinit --project <PROJECT>"
 echo "  dynf-a local"
 
 return 0
