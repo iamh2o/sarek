@@ -115,7 +115,7 @@ echo "Skip Project Check: $SKIP_PROJECT_CHECK"
 # Export environment variables
 export DAY_PROJECT="$PROJECT"
 export DAY_AWS_REGION="$region"
-export DAYLILY_SLURM_QUEUE="i192,i128,i8,i192mem,i192bigmem"
+export DAYLILY_SLURM_QUEUE="i192"
 
 # Get AWS Account ID
 export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
