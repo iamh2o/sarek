@@ -227,12 +227,6 @@ ulimit -n 16384
 export ORIG_PATH="${ORIG_PATH:-$PATH}"
 export ORIG_PS1="${ORIG_PS1:-$PS1}"
 
-# Source color themes
-if [[ -f "config/cli/colr_themes.sh" ]]; then
-    source "config/cli/colr_themes.sh"
-else
-    echo "Warning: Color themes file not found at config/cli/colr_themes.sh"
-fi
 
 # Warn if shell is not bash
 if [[ "$SHELL" != *"bash"* ]]; then
@@ -303,7 +297,7 @@ echo -e "\t(daynf-build BUILD / dynf-b BUILD)        - Build a new environment (
 echo -e "\t                           "
 echo -e "\t                           "
 echo -e "\t. To Stage Sample Data, see daylily-ephemeral-cluster docs for running ~/projects/daylily-ephemeral-cluster/bin/daylily-stage-analysis-samples-headnode "
-echo -e "\t  ... which once run, you will copy the samples.tsv and units.tsv files to config/ in this directory."     
+echo -e "\t  ... which once run, you will copy the samples.tsv and units.tsv files to conf/ in this directory. This will need to be converted to a samplesheet.csv for nf-core pipelines."     
 echo -e "\t                           "
 echo -e "\t(example): ACTIVATE AN ANALYSIS ENV\n"
 echo -e "\n"

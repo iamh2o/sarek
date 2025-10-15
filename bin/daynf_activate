@@ -30,12 +30,12 @@ fi
 if [[ "$1" =~ ^(-h|--help|help)$ ]]; then
     echo "Usage: daynf-activate [profile]"
     echo "This script activates a Daylily analysis profile."
-    echo "Valid profiles are located in 'config/$DAY_PROFILE.config'."
+    echo "Valid profiles are located in 'conf/$DAY_PROFILE.config'."
     echo "Example: daynf-activate local|slurm|daylily"
     return 0
 fi
 
-export DAY_PROFILE_DIR="$DAY_ROOT/config/$DAY_PROFILE.config"
+export DAY_PROFILE_DIR="$DAY_ROOT/conf/$DAY_PROFILE.config"
 if [[ ! -d "$DAY_PROFILE_DIR" ]]; then
     colr "ERROR: Profile directory: $DAY_PROFILE_DIR does not exist." "$DY_WT0" "$DY_WB0" "$DY_WS1" 1>&2
     echo "Have you run 'daynf-activate'?"
@@ -112,28 +112,6 @@ if [[ ! -f ~/.config/daylily/$git_tag ]]; then
     sleep 3
 fi
 
-
-
-# Verify profile exists
-profile_info="$DAY_ROOT/config/day_profiles/$1/templates/profile.info"
-if [[ -f "$profile_info" ]]; then
-    # Extract environment variables from profile.info
-    env_val=$(grep 'env_var_val' "$profile_info" | cut -d ':' -f 2)
-    if [[ "$env_val" != "$DAY_PROFILE" ]]; then
-        colr "ERROR: Profile '$1' does not match the expected environment variable value."  "$DY_WT0" "$DY_WB0" "$DY_WS1" 1>&2
-        return 1
-    fi
-    env_script=$(grep 'env_script' "$profile_info" | cut -d ':' -f 2)
-    mgps1val=$(grep 'terminal_abbreviation' "$profile_info" | cut -d ':' -f 2)
-
-    # Source the environment script
-    source "$env_script"
-    pe_ret_code=$?
-    export DYPS1="$mgps1val"
-else
-    colr "ERROR: Profile '$1' not found."  "$DY_WT0" "$DY_WB0" "$DY_WS1" 1>&2
-    return 1
-fi
 
 # Check for 'colr' command
 if ! command -v colr &> /dev/null; then
