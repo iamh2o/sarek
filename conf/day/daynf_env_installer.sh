@@ -41,7 +41,7 @@ if [[ "$SHELL" != "/bin/bash" ]]; then
 fi
 
 # Set the script directory
-SCRIPT_DIR=config/day/
+SCRIPT_DIR=conf/day/
 echo "Path to environment working directory is $SCRIPT_DIR"
 
 # Create .parallel directory if it doesn't exist
@@ -65,13 +65,7 @@ install_miniconda() {
     
     echo "Adding repo tag pinning stuff"
     conda install -y -n base -c conda-forge yq || (echo 'Failed to install yq' && return 1)
-    
-    mkdir -p ~/.config/daylily
-    cp config/daylily_cli_global.yaml ~/.config/daylily/daylily_cli_global.yaml
 
-    CONFIG_FILE=~/.config/daylily/daylily_cli_global.yaml
-    git_tag=$(yq -r '.daylily.git_tag' "$CONFIG_FILE")
-    touch ~/.config/daylily/$git_tag
 
 }
 
