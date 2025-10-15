@@ -123,7 +123,6 @@ dynf-a daylily
 
 mkdir -p test_output
 
-
 nextflow run . \
    -profile daylily \
    --input .test_data/data/test_samplesheet.csv \
