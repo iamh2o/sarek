@@ -107,6 +107,8 @@ nextflow run nf-core/sarek \
 
 For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/sarek/usage) and the [parameter documentation](https://nf-co.re/sarek/parameters).
 
+If you are running on the Daylily Informatics ephemeral AWS ParallelCluster, use the bundled [`daylily` profile](docs/usage/daylily_ephemeral_cluster.md) to pick up the environment-specific defaults.
+
 ## Pipeline output
 
 To see the results of an example test run with a full size dataset refer to the [results](https://nf-co.re/sarek/results) tab on the nf-core website pipeline page.
