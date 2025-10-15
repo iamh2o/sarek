@@ -4,19 +4,30 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - nextflow==25.04.08
+  - pandas==1.5.3
+  - python==3.11.11
   - ipython
-  - perl  
+  - perl
+  - yappi
+  - networkx
   - yamllint
   - pip
   - rclone
   - parallel
+  - pygraphviz
   - glances
   - tabix
   - fd-find
   - graphviz
+  - nextflow
+  - nodejs
+  - jq
   - yq
   - pip:
-    - rgbw-colorspace-converter
     - docopt==0.6.2
     - colr==0.9.1
+    - xmltodict
+    - wrapt
+    - tabulate
+    - ruamel.yaml
+    - aws-parallelcluster==3.11.1
