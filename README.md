@@ -105,7 +105,7 @@ Now, you can run the pipeline using:
 
 ```bash
 nextflow run nf-core/sarek \
-   -profile <docker/singularity/.../institute> \
+   -profile daylily \
    --input samplesheet.csv \
    --outdir <OUTDIR>
 ```
