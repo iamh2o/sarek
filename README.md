@@ -82,6 +82,14 @@ Depending on the options and samples provided, the pipeline can currently perfor
 > [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
 
+> Run from an headnode created via [daylily-ephemeral-cluster](https://github.com/Daylily-Informatics/daylily-ephemeral-cluster)
+
+Setup a conda environment:
+```bash
+conda create --name env_nf nextflow
+conda activate env_nf
+```
+
 First, prepare a samplesheet with your input data that looks as follows:
 
 `samplesheet.csv`:
