@@ -35,13 +35,6 @@ if [[ "$1" =~ ^(-h|--help|help)$ ]]; then
     return 0
 fi
 
-export DAY_PROFILE_DIR="$DAY_ROOT/conf/$DAY_PROFILE.config"
-if [[ ! -d "$DAY_PROFILE_DIR" ]]; then
-    colr "ERROR: Profile directory: $DAY_PROFILE_DIR does not exist." "$DY_WT0" "$DY_WB0" "$DY_WS1" 1>&2
-    echo "Have you run 'daynf-activate'?"
-    return 3
-fi
-
 if [[ "$remote_call" == "remote" ]]; then
     echo "Remote call detected. Activating conda hack"
     . "$HOME/miniconda3/etc/profile.d/conda.sh"
