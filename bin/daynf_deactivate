@@ -12,16 +12,16 @@ fi
 
 # Function to display usage information
 usage() {
-    echo "Usage: day-deactivate [activate|reset|--help]"
+    echo "Usage: daynf-deactivate [activate|reset|--help]"
     echo ""
     echo "This script deactivates the Daylily environment by:"
     echo "  - Clearing the DAY_ROOT, DAY_PROFILE, and DAY_BIOME and other dyoainit set environment variables."
-    echo "  - Attempting to deactivate any active DAYOA conda environments."
+    echo "  - Attempting to deactivate any active DAYNF conda environments."
     echo "  - Restoring the original PATH and PS1 if they were modified."
     echo "  - Unaliasing Daylily CLI commands."
     echo ""
     echo "Options:"
-    echo "  activate    Special case to partially deactivate the environment for day-activate."
+    echo "  activate    Special case to partially deactivate the environment for daynf-activate."
     echo "  reset       Reset the command line prompt to default if it was not properly reset."
     echo "  --help      Display this help message."
     return 0
@@ -40,7 +40,7 @@ case "$1" in
         return 0
         ;;
     activate)
-        # Special case when called from day_activate
+        # Special case when called from daynf_activate
         # Do not unset DAY_ROOT, DAY_PROFILE, or DAY_BIOME
         # Proceed with minimal deactivation steps
         ;;
@@ -63,14 +63,14 @@ if [[ -n "$DAY_ROOT" ]]; then
 fi
 
 # Unalias Daylily CLI commands
-unalias day-deactivate 2>/dev/null
-unalias day-build 2>/dev/null
-unalias day-activate 2>/dev/null
-unalias day-run 2>/dev/null
-unalias dy-a 2>/dev/null
-unalias dy-b 2>/dev/null
-unalias dy-d 2>/dev/null
-unalias dy-r 2>/dev/null
+unalias daynf-deactivate 2>/dev/null
+unalias daynf-build 2>/dev/null
+unalias daynf-activate 2>/dev/null
+unalias daynf-run 2>/dev/null
+unalias dynf-a 2>/dev/null
+unalias dynf-b 2>/dev/null
+unalias dynf-d 2>/dev/null
+unalias dynf-r 2>/dev/null
 
 # Restore original PS1 if it was saved
 if [[ -n "$ORIG_PS1" ]]; then
@@ -114,7 +114,7 @@ fi
 if [[ "$1" != "activate" && "$1" != "reset" ]]; then
     echo ""
     echo "If the deactivate command did not fully reset your shell prompt, try:"
-    echo "  source dyoainit; day-deactivate reset"
+    echo "  source dyoainit; daynf-deactivate reset"
 fi
 
 return 0

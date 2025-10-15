@@ -89,7 +89,7 @@ done
 # Check if DEACTIVATE flag is set
 if [[ "$DEACTIVATE" == true ]]; then
     echo "Deactivating existing environments..."
-    source bin/day_deactivate &> /dev/null || {
+    source bin/daynf_deactivate &> /dev/null || {
         echo "Error during environment deactivation."
         return 4
     }
@@ -251,15 +251,14 @@ else
 fi
 
 # Define aliases
-alias daynf-activate="source bin/day_activate"
-alias daynf-deactivate="source bin/day_deactivate"
-alias daynf-build="source bin/day_build"
-alias daynf-run="bin/day_run"
-alias dynf-a="source bin/day_activate"
-alias dynf-b="source bin/day_build"
-alias dynf-d="source bin/day_deactivate"
-alias daynf-set-genome-build="source bin/day_set_genome_build"
-alias dynf-g="source bin/day_set_genome_build"
+alias daynf-activate="source bin/daynf_activate"
+alias daynf-deactivate="source bin/daynf_deactivate"
+alias daynf-build="source bin/daynf_build"
+alias dynf-a="source bin/daynf_activate"
+alias dynf-b="source bin/daynf_build"
+alias dynf-d="source bin/daynf_deactivate"
+alias daynf-set-genome-build="source bin/daynf_set_genome_build"
+alias dynf-g="source bin/daynf_set_genome_build"
 
 
 # Display help if requested
@@ -291,23 +290,16 @@ alias sq=sq
 echo "squeue helper alias 'sq' activated"
 
 # Final message
-echo "Day CLI initialized for project '$PROJECT' in region '$region'."
-echo -e "The Daylily CLI is now available."
+echo "Daylily NF CLI initialized for project '$PROJECT' in region '$region'."
+echo -e "The Daylily NF CLI is now available."
 echo -e "Available commands (tab completion is enabled for all):"
 echo  " "
-echo -e "\t(daynf-activate / dynf-a) [slurm|local] ([hg38|hg38_broad|b37])- Activate a Slurm or local environment."
-echo -e "\t                           "
-echo -e "\t{daynf-set-genome-build / dynf-g) [b37|hg38|hg38_broad] - Set the genome build for the current environment."
-echo -e "\t                           "
-echo -e "\t(daynf-run / dynf-r)          - Run a command in the current environment."
-echo -e "\t                           <tab> for exposed targets, -<tab> for all command line flags."
+echo -e "\t(daynf-activate / dynf-a) [slurm|local]  Activate a Slurm or local environment."
 echo -e "\t                           "
 echo -e "\t(daynf-deactivate / dynf-d)   - Deactivate the current environment."
 echo -e "\t                           Use 'dynf-d reset' to hard reset the environment."
 echo -e "\t                           "
 echo -e "\t(daynf-build BUILD / dynf-b BUILD)        - Build a new environment (run once per head node user)."
-
-echo -e "\t                           "
 echo -e "\t                           "
 echo -e "\t                           "
 echo -e "\t. To Stage Sample Data, see daylily-ephemeral-cluster docs for running ~/projects/daylily-ephemeral-cluster/bin/daylily-stage-analysis-samples-headnode "
@@ -315,14 +307,10 @@ echo -e "\t  ... which once run, you will copy the samples.tsv and units.tsv fil
 echo -e "\t                           "
 echo -e "\t(example): ACTIVATE AN ANALYSIS ENV\n"
 echo -e "\n"
-echo -e "\t\tdynf-a slurm hg38 # or hg38_broad or b37\n"
-
+echo -e "\t\tdynf-a slurm "
 echo -e "\t(example): RUN ALIGNMENT\n"
-echo -e "\t\tcp .test_data/data/0.01xwgs_HG002_hg38.samples.tsv config/samples.tsv\n"
-echo -e "\t\tcp .test_data/data/0.01xwgs_HG002_hg38.units.tsv config/units.tsv\n"
+echo -e "\t\t "
+echo -e "\t\t "
 
-echo -e "\t\texport DAY_CONTAINERIZED=true # true to use pre-built container of all analysis envs. false will create each conda env as needed\n"
-
-echo -e "\t\tdynf-r produce_snv_concordances -p -k -j 2 --config aligners=[\"bwa2a\"] dedupers=[\"dppl\"]  snv_callers=[\"deep\"] -n # remove -n to quit dry-run\n"
 
 return 0

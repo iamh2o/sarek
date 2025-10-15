@@ -1,34 +1,34 @@
 #!/usr/bin/env bash
 
 ################################################################################
-# Script Name: day_env_installer.sh
-# Description: Sets up Miniconda and installs the DAYOA conda environment.
-# Usage:       source ./day_env_installer.sh DAYOA
-#              Provide 'DAYOA' as the argument to start the installation.
-#              If the 'DAYOA' environment already exists, the script will prompt accordingly.
+# Script Name: daynf_env_installer.sh
+# Description: Sets up Miniconda and installs the DAYNF conda environment.
+# Usage:       source ./daynf_env_installer.sh DAYNF
+#              Provide 'DAYNF' as the argument to start the installation.
+#              If the 'DAYNF' environment already exists, the script will prompt accordingly.
 ################################################################################
 
 
 # Function to display usage information
 usage() {
-    echo "Usage: source $0 DAYOA"
-    echo "This script installs Miniconda and sets up the DAYOA conda environment."
-    echo "Provide 'DAYOA' as the argument to start the installation."
+    echo "Usage: source $0 DAYNF"
+    echo "This script installs Miniconda and sets up the DAYNF conda environment."
+    echo "Provide 'DAYNF' as the argument to start the installation."
     return 2
 }
 
 # Check if the correct argument is provided
-DY_ENVNAME="DAYOA"
+DY_ENVNAME="DAYNF"
 if [[ "$1" != "$DY_ENVNAME" ]]; then
     echo "Hello! This is the __ $DY_ENVNAME __ installation script."
     echo ""
-    echo "The DAYOA environment installs the software needed to trigger Snakemake and run the Day (dy-) CLI."
-    echo "To run and start the install, provide 'DAYOA' as the argument."
+    echo "The DAYNF environment installs the software needed to trigger Snakemake and run the Day (dynf-) CLI."
+    echo "To run and start the install, provide 'DAYNF' as the argument."
     echo ""
-    echo "Usage: $0 DAYOA"
+    echo "Usage: $0 DAYNF"
     echo ""
-    echo "If you have an existing DAYOA install, you may need to remove it first:"
-    echo "  conda env remove -n DAYOA"
+    echo "If you have an existing DAYNF install, you may need to remove it first:"
+    echo "  conda env remove -n DAYNF"
     echo ""
     usage
 fi
@@ -102,27 +102,26 @@ conda config --set default_threads 10 || echo 'Failed to set default_threads'
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 
-# Check if the DAYOA environment already exists
+# Check if the DAYNF environment already exists
 if conda env list | grep -q "^$DY_ENVNAME\s"; then
     echo ""
-    echo "It appears you have a DAYOA environment already."
-    echo "You may need to manually remove the conda env dir for DAYOA and try again."
+    echo "It appears you have a DAYNF environment already."
+    echo "You may need to manually remove the conda env dir for DAYNF and try again."
     echo "To remove the environment, run:"
-    echo "  conda env remove -n DAYOA"
+    echo "  conda env remove -n DAYNF"
     return 0
 else
     conda install -y -n base -c conda-forge yq || echo 'Failed to install yq'
-    echo "Installing DAYOA environment..."
-    # Create the DAYOA environment
+    echo "Installing DAYNF environment..."
+    # Create the DAYNF environment
     if conda env create -n "$DY_ENVNAME" -f "$SCRIPT_DIR/day.yaml"; then
-        echo "DAYOA environment created successfully."
+        echo "DAYNF environment created successfully."
         echo ""
         echo "Try the following commands to get started:"
         echo "  source dyinit --project <PROJECT>"
-        echo "  dy-a local"
-        echo "  dy-r help"
+        echo "  dynf-a local"
     else
-        echo "Failed to create DAYOA environment."
+        echo "Failed to create DAYNF environment."
         return 1
     fi
 fi
@@ -131,7 +130,6 @@ echo ""
 echo "Installation complete."
 echo "Please log out and log back in, then run:"
 echo "  source dyinit --project <PROJECT>"
-echo "  dy-a local"
-echo "  dy-r help"
+echo "  dynf-a local"
 
 return 0

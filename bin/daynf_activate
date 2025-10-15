@@ -14,31 +14,31 @@ if [[ -z "$dayp" ]]; then
 fi
 
 # Attempt to deactivate any existing environment
-source bin/day_deactivate &> /dev/null 
+source bin/daynf_deactivate &> /dev/null 
 echo "Attempting to deactivate existing environments & re-init with --project $DP ."
-. dyoainit --project $DP --deactivate &> /dev/null
+. dynfinit --project $DP --deactivate &> /dev/null
 export DAY_PROFILE=$dayp
 
 
 # Check if DAY_ROOT is set
 if [[ -z "$DAY_ROOT" ]]; then
-    echo "ERROR: DAY_ROOT is not set. Have you executed 'source dyoainit'? Use -h for help."
+    echo "ERROR: DAY_ROOT is not set. Have you executed 'source dynfinit'? Use -h for help."
     return 2
 fi
 
 # Handle help argument
 if [[ "$1" =~ ^(-h|--help|help)$ ]]; then
-    echo "Usage: day-activate [profile]"
+    echo "Usage: daynf-activate [profile]"
     echo "This script activates a Daylily analysis profile."
-    echo "Valid profiles are located in 'config/day_profiles/'."
-    echo "Example: day-activate local"
+    echo "Valid profiles are located in 'config/$DAY_PROFILE.config'."
+    echo "Example: daynf-activate local|slurm|daylily"
     return 0
 fi
 
-export DAY_PROFILE_DIR="$DAY_ROOT/config/day_profiles/$DAY_PROFILE"
+export DAY_PROFILE_DIR="$DAY_ROOT/config/$DAY_PROFILE.config"
 if [[ ! -d "$DAY_PROFILE_DIR" ]]; then
     colr "ERROR: Profile directory: $DAY_PROFILE_DIR does not exist." "$DY_WT0" "$DY_WB0" "$DY_WS1" 1>&2
-    echo "Have you run 'day-activate'?"
+    echo "Have you run 'daynf-activate'?"
     return 3
 fi
 
@@ -50,10 +50,10 @@ else
     unset DAY_REMOTE_EXE
 fi
 
-conda activate DAYOA
+conda activate DAYNF
 conda_ret_code=$?
 if [[ "$conda_ret_code" != "0" ]]; then
-    colr "ERROR: conda activate DAYOA failed with return code $conda_ret_code."  "$DY_WT0" "$DY_WB0" "$DY_WS1" 1>&2
+    colr "ERROR: conda activate DAYNF failed with return code $conda_ret_code."  "$DY_WT0" "$DY_WB0" "$DY_WS1" 1>&2
     return 4
 fi
 
@@ -146,21 +146,21 @@ if [[ "$pe_ret_code" != "0" ]]; then
     source bin/util/col_error.bash
     colr "ERROR: Activation failed with return code $pe_ret_code."  "$DY_WT0" "$DY_WB0" "$DY_WS1" 1>&2
     colr ""  "$DY_WT0" "$DY_WB0" "$DY_WS1" 1>&2
-    colr  "Have you run 'day-build'? If so, try 'bin/day_deactivate reset; source dyoainit; day-activate local;'"  "$DY_WT0" "$DY_WB0" "$DY_WS1" 1>&2
+    colr  "Have you run 'daynf-build'? If so, try 'bin/daynf_deactivate reset; source dynfinit; daynf-activate local;'"  "$DY_WT0" "$DY_WB0" "$DY_WS1" 1>&2
     return $pe_ret_code
 else
 
 
     gbuild_ret_code=0
     if [[ "$gbuild" != "" ]]; then
-        source bin/day_set_genome_build $gbuild
+        source bin/daynf_set_genome_build $gbuild
         gbuild_ret_code=$?
     else
         colr "Skipping genome build activation."  "$DY_WI1" "$DY_IB2" "$DY_IS1" 1>&2
     fi
 
     if [[ "$gbuild_ret_code" != "0" ]]; then
-        colr  "ERROR:  dy-g $gbuild ($gbuild_ret_code)  failed." "$DY_WT0" "$DY_WB0" "$DY_WS1" 1>&2
+        colr  "ERROR:  dynf-g $gbuild ($gbuild_ret_code)  failed." "$DY_WT0" "$DY_WB0" "$DY_WS1" 1>&2
         return 5
     fi
     colr "       _______ GREAT SUCCESS _______       " "$DY_IT0" "$DY_IB0" "$DY_IS1"
