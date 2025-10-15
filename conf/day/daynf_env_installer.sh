@@ -105,10 +105,10 @@ if conda env list | grep -q "^$DY_ENVNAME\s"; then
     echo "  conda env remove -n DAYNF"
     return 0
 else
-    conda install -y -n base -c conda-forge yq || echo 'Failed to install yq'
+
     echo "Installing DAYNF environment..."
     # Create the DAYNF environment
-    if conda env create -n "$DY_ENVNAME" -f "$SCRIPT_DIR/day.yaml"; then
+    if conda env create -n "$DY_ENVNAME" -f "$SCRIPT_DIR/daynf.yaml"; then
         echo "DAYNF environment created successfully."
         echo ""
         echo "Try the following commands to get started:"
