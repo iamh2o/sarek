@@ -227,6 +227,12 @@ ulimit -n 16384
 export ORIG_PATH="${ORIG_PATH:-$PATH}"
 export ORIG_PS1="${ORIG_PS1:-$PS1}"
 
+# Source color themes
+if [[ -f "config/cli/colr_themes.sh" ]]; then
+    source "config/cli/colr_themes.sh"
+else
+    echo "Warning: Color themes file not found at config/cli/colr_themes.sh"
+fi
 
 # Warn if shell is not bash
 if [[ "$SHELL" != *"bash"* ]]; then
