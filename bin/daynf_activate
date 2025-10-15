@@ -43,18 +43,15 @@ else
     unset DAY_REMOTE_EXE
 fi
 
+pe_ret_code=0
 conda activate DAYNF
 conda_ret_code=$?
+pe_ret_code=$conda_ret_code
 if [[ "$conda_ret_code" != "0" ]]; then
     colr "ERROR: conda activate DAYNF failed with return code $conda_ret_code."  "$DY_WT0" "$DY_WB0" "$DY_WS1" 1>&2
     return 4
 fi
 
-source bin/util/profile_freshness_warn.bash
-if [[ "$?" == "3" ]]; then
-    colr "ERROR: source bin/util/profile_freshness_warn.bash"  "$DY_WT0" "$DY_WB0" "$DY_WS1" 1>&2
-    return 4
-fi
 
 if ! which yq &>/dev/null; then
   echo "yq not found. Installing via conda in base environment..."
