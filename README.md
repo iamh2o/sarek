@@ -82,14 +82,55 @@ Depending on the options and samples provided, the pipeline can currently perfor
 > [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
 
-> Run from an headnode created via [daylily-ephemeral-cluster](https://github.com/Daylily-Informatics/daylily-ephemeral-cluster)
+> **You must run this fork of `sarek` from an headnode created via [daylily-ephemeral-cluster](https://github.com/Daylily-Informatics/daylily-ephemeral-cluster)**
+ 
+### Clone the repository
 
-Setup a conda environment:
+#### Using `day-clone` available on the headnode
+
 ```bash
-conda create --name env_nf nextflow
-conda activate env_nf
+day-clone -d daylily_sarek_test --repository daylily-sarek
+cd /fsx/analysis_results/ubuntu/daylily_sarek_test
 ```
 
+#### Manually
+
+```bash
+cd /fsx/analysis_results/ubuntu/
+git clone https://github.com/Daylily-Informatics/daylily-sarek.git daylily_sarek_test
+cd daylily_sarek_test
+```
+
+### Initialize `dynf` and (create if necessary) the `conda` environment
+```bash
+. dynfinit
+dynf-b BUILD
+```
+
+### Activate the conda environment via `dynf-a`
+```bash
+. dynfinit 
+dynf-a daylily
+```
+
+### Run the pipeline
+
+#### With Packaged Data
+
+```bash
+. dynfinit 
+dynf-a daylily
+
+mkdir -p test_output
+
+
+nextflow run . \
+   -profile daylily \
+   --input .test_data/data/test_samplesheet.csv \
+   --outdir ./test_output
+```
+
+#### Basic command
 First, prepare a samplesheet with your input data that looks as follows:
 
 `samplesheet.csv`:
@@ -104,10 +145,13 @@ Each row represents a pair of fastq files (paired end).
 Now, you can run the pipeline using:
 
 ```bash
-nextflow run nf-core/sarek \
+
+mkdir -p test_output
+
+nextflow run . \
    -profile daylily \
-   --input samplesheet.csv \
-   --outdir <OUTDIR>
+   --input .test_data/data/test_samplesheet.csv \
+   --outdir ./test_output
 ```
 
 > [!WARNING]
