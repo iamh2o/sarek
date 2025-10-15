@@ -1,3 +1,6 @@
+# port of `sarek` to run on AWS ParallelCluster by [daylily-ephemeral-cluster](https://github.com/Daylily-Informatics/daylily-ephemeral-cluster)
+## _this is a beta effort_
+
 <h1>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-sarek_logo_dark.png">
