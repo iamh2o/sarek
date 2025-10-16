@@ -5,10 +5,11 @@ with [`daylily-ephemeral-cluster`](https://github.com/Daylily-Informatics/daylil
 The cluster ships with a shared FSx for Lustre mount at `/fsx` that exposes the
 reference bundle produced by [`daylily-omics-references`](https://github.com/Daylily-Informatics/daylily-omics-references).
 
-The pipeline ships a dedicated configuration profile named `daylily_ephemeral_cluster`
-(aliased to `daylily`) that
+The pipeline ships dedicated configuration profiles named `daylily_ephemeral_cluster`
+(aliased to `daylily`) and `daylily_ephemeral_cluster_local` (aliased to
+`daylily_local`) that
 
-- configures the Slurm executor used by the cluster,
+- configure the Slurm or local executor used by the cluster,
 - points Sarek to the reference files under `/fsx/data/`, and
 - enables Singularity with the cache stored on the shared FSx volume.
 
@@ -60,5 +61,21 @@ Key points to keep in mind:
 - The working directory defaults to `/fsx/work/$USER/sarek/work`. Export `NXF_WORK`
   if you prefer a different location.
 
+If you prefer to execute the workflow on the head node without submitting to
+Slurm, switch to the local variant:
+
+```bash
+nextflow run nf-core/sarek \
+    -r <VERSION> \
+    -profile daylily_local \
+    --genome DAYLILY.GRCh38 \
+    --input /path/to/samplesheet.csv \
+    --outdir /fsx/analysis_results/$USER/sarek/<run-name>
+```
+
+This uses Nextflow's local executor while keeping all Daylily-specific paths and
+defaults.
+
 For more information about the profile defaults see
-[`conf/daylily_ephemeral_cluster.config`](../../conf/daylily_ephemeral_cluster.config).
+[`conf/daylily_ephemeral_cluster.config`](../../conf/daylily_ephemeral_cluster.config)
+and [`conf/daylily_ephemeral_cluster_local.config`](../../conf/daylily_ephemeral_cluster_local.config).
