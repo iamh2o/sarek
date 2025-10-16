@@ -1,5 +1,6 @@
 # port of `sarek` to run on AWS ParallelCluster by [daylily-ephemeral-cluster](https://github.com/Daylily-Informatics/daylily-ephemeral-cluster)
-## _this is a beta effort_
+
+## _this is a beta effort and still is in need of optimizing for running via AWS Parallel Cluster_
 
 <h1>
   <picture>
@@ -155,6 +156,7 @@ nextflow run . \
    --input .test_data/data/test_samplesheet.csv \
    --outdir ./test_output
 ```
+> there are two profiles `daylily` (which uses slurm) and `daylily_local` which tries to execute on the headnode and is far less tested.
 
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/usage/getting_started/configuration#custom-configuration-files).
